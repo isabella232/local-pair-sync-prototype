@@ -49,7 +49,7 @@ func TestZyre(t *testing.T) {
 	z1.Shout("TALK", []byte("Hi world"))
 
 	//wg.Wait()
-	time.Sleep(time.Second)
+	time.Sleep(5 * time.Second)
 
 	spew.Dump(z1.Peers(), z2.Peers())
 }
