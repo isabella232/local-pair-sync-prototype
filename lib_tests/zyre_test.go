@@ -1,12 +1,13 @@
-package app
+package lib_tests
 
 import (
 	"context"
-	"github.com/davecgh/go-spew/spew"
-	"github.com/go-zeromq/zyre"
 	"sync"
 	"testing"
 	"time"
+
+	"github.com/davecgh/go-spew/spew"
+	"github.com/go-zeromq/zyre"
 )
 
 func TestZyre(t *testing.T) {
