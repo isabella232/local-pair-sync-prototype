@@ -97,11 +97,27 @@ PASS
 
 **macos: wifi: 1 peer per device:**
 ```text
-=== RUN   TestAnother
 Scanning for 10 seconds to find LAN peers
-Payload sending : 'zsOFvOdbfo'
-Found no devices. You need to run this on another computer at the same time.
---- PASS: TestAnother (10.01s)
+Payload sending : 'ahQBlMvUYE'
+2021/07/12 14:24:32 address: 192.168.0.17, payload: DNDVvRmirX
+2021/07/12 14:24:32 address: 192.168.0.17, payload: DNDVvRmirX
+2021/07/12 14:24:33 address: 192.168.0.17, payload: DNDVvRmirX
+2021/07/12 14:24:33 address: 192.168.0.17, payload: DNDVvRmirX
+2021/07/12 14:24:34 address: 192.168.0.17, payload: DNDVvRmirX
+2021/07/12 14:24:34 address: 192.168.0.17, payload: DNDVvRmirX
+2021/07/12 14:24:35 address: 192.168.0.17, payload: DNDVvRmirX
+2021/07/12 14:24:35 address: 192.168.0.17, payload: DNDVvRmirX
+2021/07/12 14:24:36 address: 192.168.0.17, payload: DNDVvRmirX
+2021/07/12 14:24:36 address: 192.168.0.17, payload: DNDVvRmirX
+2021/07/12 14:24:37 address: 192.168.0.17, payload: DNDVvRmirX
+2021/07/12 14:24:37 address: 192.168.0.17, payload: DNDVvRmirX
+2021/07/12 14:24:38 address: 192.168.0.17, payload: DNDVvRmirX
+2021/07/12 14:24:38 address: 192.168.0.17, payload: DNDVvRmirX
+2021/07/12 14:24:39 address: 192.168.0.17, payload: DNDVvRmirX
+2021/07/12 14:24:39 address: 192.168.0.17, payload: DNDVvRmirX
+Found 1 other computers
+0) '192.168.0.17' with payload 'DNDVvRmirX'
+--- PASS: TestAnother (10.00s)
 PASS
 ```
 
@@ -109,32 +125,35 @@ PASS
 ```text
 === RUN   TestAnother
 Scanning for 10 seconds to find LAN peers
-2021/07/09 16:54:54 address: 192.168.0.14, payload: zsOFvOdbfo
-2021/07/09 16:54:54 address: 192.168.0.14, payload: zsOFvOdbfo
-2021/07/09 16:54:55 address: 192.168.0.14, payload: zsOFvOdbfo
-2021/07/09 16:54:55 address: 192.168.0.14, payload: zsOFvOdbfo
-2021/07/09 16:54:55 address: 192.168.0.14, payload: zsOFvOdbfo
-2021/07/09 16:54:55 address: 192.168.0.14, payload: zsOFvOdbfo
-2021/07/09 16:54:56 address: 192.168.0.14, payload: zsOFvOdbfo
-2021/07/09 16:54:56 address: 192.168.0.14, payload: zsOFvOdbfo
-2021/07/09 16:54:56 address: 192.168.0.14, payload: zsOFvOdbfo
-2021/07/09 16:54:56 address: 192.168.0.14, payload: zsOFvOdbfo
-2021/07/09 16:54:57 address: 192.168.0.14, payload: zsOFvOdbfo
-2021/07/09 16:54:57 address: 192.168.0.14, payload: zsOFvOdbfo
-2021/07/09 16:54:57 address: 192.168.0.14, payload: zsOFvOdbfo
-2021/07/09 16:54:57 address: 192.168.0.14, payload: zsOFvOdbfo
-2021/07/09 16:54:58 address: 192.168.0.14, payload: zsOFvOdbfo
-2021/07/09 16:54:58 address: 192.168.0.14, payload: zsOFvOdbfo
-2021/07/09 16:54:58 address: 192.168.0.14, payload: zsOFvOdbfo
-2021/07/09 16:54:58 address: 192.168.0.14, payload: zsOFvOdbfo
-2021/07/09 16:54:59 address: 192.168.0.14, payload: zsOFvOdbfo
-2021/07/09 16:54:59 address: 192.168.0.14, payload: zsOFvOdbfo
+Payload sending : 'DNDVvRmirX'
+2021/07/09 16:54:54 address: 192.168.0.14, payload: ahQBlMvUYE
+2021/07/09 16:54:54 address: 192.168.0.14, payload: ahQBlMvUYE
+2021/07/09 16:54:55 address: 192.168.0.14, payload: ahQBlMvUYE
+2021/07/09 16:54:55 address: 192.168.0.14, payload: ahQBlMvUYE
+2021/07/09 16:54:55 address: 192.168.0.14, payload: ahQBlMvUYE
+2021/07/09 16:54:55 address: 192.168.0.14, payload: ahQBlMvUYE
+2021/07/09 16:54:56 address: 192.168.0.14, payload: ahQBlMvUYE
+2021/07/09 16:54:56 address: 192.168.0.14, payload: ahQBlMvUYE
+2021/07/09 16:54:56 address: 192.168.0.14, payload: ahQBlMvUYE
+2021/07/09 16:54:56 address: 192.168.0.14, payload: ahQBlMvUYE
+2021/07/09 16:54:57 address: 192.168.0.14, payload: ahQBlMvUYE
+2021/07/09 16:54:57 address: 192.168.0.14, payload: ahQBlMvUYE
+2021/07/09 16:54:57 address: 192.168.0.14, payload: ahQBlMvUYE
+2021/07/09 16:54:57 address: 192.168.0.14, payload: ahQBlMvUYE
+2021/07/09 16:54:58 address: 192.168.0.14, payload: ahQBlMvUYE
+2021/07/09 16:54:58 address: 192.168.0.14, payload: ahQBlMvUYE
+2021/07/09 16:54:58 address: 192.168.0.14, payload: ahQBlMvUYE
+2021/07/09 16:54:58 address: 192.168.0.14, payload: ahQBlMvUYE
+2021/07/09 16:54:59 address: 192.168.0.14, payload: ahQBlMvUYE
+2021/07/09 16:54:59 address: 192.168.0.14, payload: ahQBlMvUYE
 Found 1 other computers
-0) '192.168.0.14' with payload 'zsOFvOdbfo'
+0) '192.168.0.14' with payload 'ahQBlMvUYE'
 --- PASS: TestAnother (10.34s)
 PASS
 ```
 
 **Notes:**
 
-Windows/ethernet peer device can see and receive payload from the macOS/Wifi device peer. But the MacOS/Wifi device can not see the Windows/ethernet device and/or receive the payload.
+~~Windows/ethernet peer device can see and receive payload from the macOS/Wifi device peer. But the MacOS/Wifi device can not see the Windows/ethernet device and/or receive the payload.~~
+
+Follow up, the issue is caused by the system firewall silently blocking all network calls for my application.
