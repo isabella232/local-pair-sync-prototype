@@ -8,4 +8,9 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	err = a.Run()
+	if err != nil {
+		panic(err)
+	}
 }

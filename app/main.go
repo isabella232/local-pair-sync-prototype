@@ -12,6 +12,18 @@ const (
 	TLSKeyName = KeysDir + "tls.key"
 )
 
+type Device struct {
+	Name string
+	IP string
+}
+
+var (
+	ds = []Device{
+		{"Android", "127.0.0.11"},
+		{"My Desktop", "127.0.0.12"},
+	}
+)
+
 type App struct {
 	CertPemBytes []byte
 	KeyPemBytes []byte
@@ -20,6 +32,22 @@ type App struct {
 
 func (a *App) Init() error {
 	return a.generateKeyAndCert()
+}
+
+func (a *App) Run() error {
+	state := NewState()
+
+	for {
+		err := state.Perform()
+		if err != nil {
+			return err
+		}
+
+		err = state.ProgressCurrentStep()
+		if err != nil {
+			return err
+		}
+	}
 }
 
 func (a *App) generateKeyAndCert() error {
