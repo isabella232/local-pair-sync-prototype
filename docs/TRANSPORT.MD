@@ -63,7 +63,7 @@ AES Key, UUID and Serialised Elliptic Curve Public Key
 - Devices negotiate who produces the QR code:
   - If one of the devices is a desktop device the desktop device will produce the QR code
   - If both of the devices are desktop devices a code is generated to share between devices.
-    - More work needs to be done on this.
+    - **TODO** More work needs to be done on this.
   - If both of the devices are mobile devices the Sender will generate the QR code
 - QR device shows QR code containing (see [QR Codes document](./QRCODES.md)):
   - a 256-bit AES key
@@ -75,9 +75,17 @@ AES Key, UUID and Serialised Elliptic Curve Public Key
     - Device UUID matches the exchanged Device UUID from the Receiver
     - The EC public key matches the key the Sender signed the x509 certificate with
     - The AES key is 256-bit
-  - TODO Receiver
+  - If the reading device is a Receiver, the Receiver checks that the:
+    - Device UUID matches the exchanged Device UUID from the Sender
+    - The EC public key matches the key the Sender signed the x509 certificate with
+    - The AES key is 256-bit
+  - If any of the checks fail, return error and terminate the connection
 - The reading device signals, if required, to initiate transfer.
+- Receiver adds supplied x509 cert to list of root certs
+- Sender encrypts private key payload with secret AES key
 - Sender begins data transfer to Receiver
+- Receiver decrypts private key payload with secret AES key
+- Receiver validates decrypted payload with checksum
 - Receiver confirms to User that transfer is complete
 
 ## SRP over TCP
