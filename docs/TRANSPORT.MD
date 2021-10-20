@@ -1,15 +1,18 @@
 # Transport
 
-- [Extender Self-signed TLS Certificate](#extender-self-signed-tls-certificate)
+Below are detailed techniques for sharing private key data between 2 devices over a local network.
+
+- [Self-signed TLS Certificate Authorised with QR Code](#self-signed-tls-certificate-authorised-with-qr-code)
 - [SRP Over TCP](#srp-over-tcp)
 
-## Extended Self-signed TLS Certificate
+## Self-signed TLS Certificate Authorised with QR Code
 
 ### Tech implementation
 
-- TLS with an ephemeral elliptic curve key
-- Generate a 32 byte / 256 bit AES key that is shared to the client/receiving device via a QR code.
-    - For desktop to desktop scenarios we can display a BIP39 phrase derived from the underlying AES key
+- TLS using a x509 certificate signed with an ephemeral elliptic curve key
+- EC public key authorised via QR code scan
+- Payload encrypted with a 32 byte / 256 bit AES key that is secretly shared via a QR code.
+  - For desktop to desktop scenarios we can display a BIP39 phrase derived from the underlying AES key
 
 ### User flow
 
@@ -58,6 +61,7 @@ AES Key, UUID and Serialised Elliptic Curve Public Key
     - Device UUID
     - Device Type (Mobile, Desktop)
     - Device IP address
+- Receiver will access and store the Sender's x509 certificate
 - Sender and Receiver show other discovered devices to the User
 - **User** selects device to connect to
 - Devices negotiate who produces the QR code:
@@ -82,8 +86,9 @@ AES Key, UUID and Serialised Elliptic Curve Public Key
   - If any of the checks fail, return error and terminate the connection
 - The reading device signals, if required, to initiate transfer.
 - Receiver adds supplied x509 cert to list of root certs
+- Receiver establishes TLS connection with Sender
 - Sender encrypts private key payload with secret AES key
-- Sender begins data transfer to Receiver
+- Sender begins data transfer of encrypted payload to Receiver
 - Receiver decrypts private key payload with secret AES key
 - Receiver validates decrypted payload with checksum
 - Receiver confirms to User that transfer is complete
