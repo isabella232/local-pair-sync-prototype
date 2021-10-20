@@ -7,14 +7,9 @@
 
 ### Tech implementation
 
-- TLS with an ephemeral key, use extension fields to define 2 extra params, chatKey and chatKeySig.
-    - Doing this would overcome the CA issue, because we already have a known public key that we trust and that can produce signatures.
-    - Unfortunately we can't just use the chat key to sign the x509 cert because go's x509 library doesn't support secp256k1 curves even though it does support ECDSA private keys.
-- Implement an additional precheck on the x509 cert that the public chat key matches the known public key, that the signature verifies. We'd need to show something to the user, to ask for their confirmation, I'm imagining a screen that displays the key and derived data (3 word pseudonym and identicon), show this screen on both devices and ask the user to check that both match.
+- TLS with an ephemeral elliptic curve key
 - Generate a 32 byte / 256 bit AES key that is shared to the client/receiving device via a QR code.
     - For desktop to desktop scenarios we can display a BIP39 phrase derived from the underlying AES key
-- Client sends an encrypted message to the server to prove the client has the AES key.
-- Server verifies the payload, on success commences sending of private key data encrypted with the AES key
 
 ### User flow
 
@@ -23,19 +18,20 @@
 - Receiver = The device receiving private key data
 
 **Flow**:
-1) **User** puts Sender and Receiver into "onboard from another device" mode
-2) Sender and Receiver look for each other
-3) Sender and Receiver show other discovered devices to the User
-4) **User** selects device to connect to
-5) Sender shows User a screen of its public key, 3 word pseudonym and identicon
-6) Receiver reads the extended x509 cert (like an SSL cert), validates signatures etc
-7) Receiver shows User a screen of the Sender's public key, 3 word pseudonym and identicon
-8) **User** confirms on Receiver that the Sender's screen and Receiver's screen match
-9) Receiver sends message to Sender, confirming that the connection is approved by the user
-10) Sender shows QR code
-11) **User** scans QR code on Receiver
-12) Sender begins data transfer to Receiver
-13) Receiver confirms to User that transfer is complete
+- **User** puts Sender and Receiver into "onboard from another device" mode
+- Sender and Receiver look for each other
+- Sender and Receiver show other discovered devices to the User
+- **User** selects device to connect to
+- Sender or Receiver shows QR code*
+- **User** scans QR code on the reading device
+- Sender begins data transfer to Receiver
+- Receiver confirms to User that transfer is complete
+
+> *Depending on the context either devices may be required to provide the QR Code.
+>
+> **Example :** The Sender is a mobile device and the Receiver is a desktop computer. In this case it would be unlikely that the desktop computer could scan a QR code, but the mobile device would be able to scan a QR code displayed by the desktop device.
+> 
+> For further details on QR code presentation please see [QR Codes document](./QRCODES.md).
 
 ### Output QR Code
 
@@ -46,6 +42,43 @@ AES Key
 AES Key and UUID
 
 ![AES Key and UUID](./images/qrcode_aes_key_uuid.png)
+
+AES Key, UUID and Serialised Elliptic Curve Public Key
+
+![AES Key, UUID and Serialised Elliptic Curve Public Key](./images/qrcode_aes_key_uuid_ec_public_key.png)
+
+### Full Technical Flow
+
+- **User** puts Sender and Receiver into "onboard from another device" mode
+- Sender generates ephemeral EC key and signs a x509 certificate
+- Sender opens a TCP port to make the certificate public
+- Sender and Receiver look for each other on the local network, using UDP beacon discovery
+  - Devices exchange identity data:
+    - Device Name
+    - Device UUID
+    - Device Type (Mobile, Desktop)
+    - Device IP address
+- Sender and Receiver show other discovered devices to the User
+- **User** selects device to connect to
+- Devices negotiate who produces the QR code:
+  - If one of the devices is a desktop device the desktop device will produce the QR code
+  - If both of the devices are desktop devices a code is generated to share between devices.
+    - More work needs to be done on this.
+  - If both of the devices are mobile devices the Sender will generate the QR code
+- QR device shows QR code containing (see [QR Codes document](./QRCODES.md)):
+  - a 256-bit AES key
+  - a device UUID
+  - the serialised ec public key used to sign the TLS certificate
+- **User** scans QR code on the reading device
+- The reading device verifies the data
+  - If the reading device is a Sender, the Sender checks that the:
+    - Device UUID matches the exchanged Device UUID from the Receiver
+    - The EC public key matches the key the Sender signed the x509 certificate with
+    - The AES key is 256-bit
+  - TODO Receiver
+- The reading device signals, if required, to initiate transfer.
+- Sender begins data transfer to Receiver
+- Receiver confirms to User that transfer is complete
 
 ## SRP over TCP
 
